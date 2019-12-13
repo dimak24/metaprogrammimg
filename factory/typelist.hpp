@@ -67,9 +67,8 @@ template <typename, typename>
 struct ContainsImpl;
 
 template <typename T, typename... Ts>
-struct ContainsImpl<T, TypeList<Ts...>> {
-    static constexpr inline bool value = (false || ... || std::is_same_v<T, Ts>);
-};
+struct ContainsImpl<T, TypeList<Ts...>> :
+    std::integral_constant<bool, (false || ... || std::is_same_v<T, Ts>)> {};
 
 
 template <typename TL, typename U>
