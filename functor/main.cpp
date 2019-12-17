@@ -65,13 +65,13 @@ template <typename T>
 struct is_visitor : is_base_of<Visitor, T> {};
 
 
-template <typename, typename, typename = void>
+template <typename, typename>
 class Functor;
 
 
 template <typename A, typename V>
-class Functor<A, V,
-    enable_if_t<is_base_of<Acceptor, A>::value && is_base_of<Visitor, V>::value>> {
+class Functor {
+    static_assert(is_base_of<Acceptor, A>::value && is_base_of<Visitor, V>::value);
 private:
     static void call_(const char* shop, int num, const std::string& name)
     {
